@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Hello, world!</title>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function(){
+    
+    $("#row").click(function(){
+    console.log('clicked');
+    
+    var markup ='<tr>';
+      markup +='<td>';
+        markup +='<button type="button" class="btn btn-danger" id="delete-row">x</button>';
+      markup +='</td>';
+      
+      markup +='<td>';
+        markup +='<input type="text">';
+      markup +='</td>';
+      markup +='<td>';
+        markup +='<input type="text">';
+      markup +='</td>';
+      markup +='<td>';
+        markup +='<input type="text">';
+      markup +='</td>';
+      markup +='<td>';
+        markup +='<input type="text">';
+      markup +='</td>';
+      markup +='<td class="column">';
+        
+      markup +='</td>';
+      
+    markup+='</tr>';
+    $("table tbody").append(markup);
+    });
+    //           var rowcount = $('table tbody tr   ').length;
+    //              console.log(rowcount);
+    //          if (rowcount===1) {
+    //          // sum=total.html()-column.html();
+    //          // tot=parseInt(sum);
+    //          console.log(total.html());
+    //          var sum=0;
+    //          $('#result').text(sum);
+    // }
+    $(document).on('click', 'button#delete-row', function(){
+    $(this).closest('tr').remove();
+    // return false;
+    console.log("lets see");
+    
+    var subTotal=0;
+    var column = $('.column');
+    var total=$('#result');
+    
+    var rowcount=$('table tbody tr ');
+    console.log(rowcount.length);
+    if (rowcount.length===1) {
+    total.text(subTotal);
+    } else {
+    jQuery.each(column,function(number){
+    // console.log(total.html());
+    console.log($(this).html());
+    
+    // console.log(column.html());
+    // total.text(subTotal);
+    subTotal += parseFloat($(this).html());
+    
+    //            subTotal=parseInt(total)-new Number($(this).html())
+    total.text(subTotal);
+    // console.log(subTotal);
+    // sub =- parseInt($(this).html());
+    });
+    }
+    });
+    var body = $('#myTable').children('tbody').first();
+    // var totals = $('#totals');
+    body.on('input', 'input[type="text"]', function() {
+    var cells = $(this).closest('tr').children('td');
+    var value1 = cells.eq(3).find('input').val();
+    var value2 = cells.eq(4).find('input').val();
+    
+    if ($.isNumeric(value1) && $.isNumeric(value2) ){
+    cells.eq(5).text(new Number(value1) * new Number(value2));
+    }
+    
+    });
+    // $("#myTable").on('change', '.column', function () {
+    //       var calculated_total_sum = 0;
+    
+    //       $("#myTable .column").each(function () {
+    //           var get_textbox_value = $(this).val();
+    //           if ($.isNumeric(get_textbox_value)) {
+    //              calculated_total_sum += parseFloat(get_textbox_value);
+    //              console.log(calculated_total_sum)
+    //              }
+    //            });
+    //              $("#result").text(calculated_total_sum);
+    //       });
+    // sum of last column (Total)
+    $(this).on('input',function(){
+    var sum = 0;
+    var column = $('.column');
+    var vat=$('.vat').val();
+    console.log(vat);
+    
+    
+    jQuery.each(column,function(number){
+    
+    // console.log(column.html());
+    if ($.isNumeric($(this).html())  ){
+    sum += parseFloat($(this).html());
+    }
+    
+    });
+    var vatAmount = ((sum*vat)/100);
+    var grandTotal=parseFloat(sum+vatAmount);
+    $('#result').text(sum);
+    $('#vatResult').text(vatAmount);
+    $('#grandResult').text(grandTotal);
+    console.log(sum);
+    console.log(vatAmount);
+    });
+    // get the column
+    });
+    </script>
+  </head>
+  <body>
+    
+    <!--  <div class="container mt-2">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          
+          <h3 class="text-center mb-1">XYZ Suppliers</h3>
+          <p class="text-center  mb-0"><small class="font-weight-bold">PAN No.: 606098412</small></p>
+          <p class="text-center "><small class="font-weight-bold">Phone No.: 0120-4571570/7042344100</small></p>
+          <div class="row pb-2 p-2">
+            <div class="col-md-6">
+              <p class="mb-2"><strong>Invoice Number</strong>: <input type="text" style="padding: 0.3rem;"></p>
+              <p style="margin-left: 76px;" ><strong>Name</strong>: <input type="text" style="padding: 0.3rem;"></p>
+            </div>
+            <div class="col-md-6 text-right">
+              <p ><strong>Invoice Date</strong>: <input type="date" style="padding: 0.3rem;"></p>
+              <p><strong>Phone</strong>: 9643208548</p>
+            </div>
+          </div> -->
+          <div class="container">
+            <div class="table-responsive mt-3">
+              <table class="table table-bordered table-hover" id="myTable">
+                <thead >
+                  <tr>
+                    <th class="row-Action">#</th>
+                    <th class="row-Number">S.no.</th>
+                    <th scope="col" class="row-Par">Particulars</th>
+                    <th scope="col" class="row-Quant">Quantity</th>
+                    <th scope="col" class="row-Rate">Rate</th>
+                    <th scope="col" class="row-Tot">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  </tr>
+                  
+                </tbody>
+                <tfoot id="TableFooter">
+                <tr>
+                  <td colspan="5">Sub-Total</td>
+                  
+                  <td id="result"></td>
+                </tr>
+                <tr>
+                  
+                  
+                  
+                  
+                  <td colspan="5" >VAT %</td>
+                  <td id="" ><input type="number" name="vat" class="vat" id="row-Vat"></td>
+                </tr>
+                <tr>
+                  
+                  
+                  
+                  
+                  <td colspan="5" >VAT Amount</td>
+                  <td id="vatResult" ></td>
+                </tr>
+                <!-- <tr>
+                  
+                  
+                  
+                  
+                  <td colspan="5" rowspan="" headers="">Paid Amount</td>
+                  <td id="" ><input type="number"></td>
+                </tr> -->
+                <tr>
+                  
+                  
+                  
+                  
+                  <td colspan="5"  headers="">Grand Total</td>
+                  <td id="grandResult" ></td>
+                </tr>
+                <tr>
+                  
+                  <td>  <button type="button" class="btn btn-primary" id="row">Add Row</button></td>
+                  
+                  
+                  
+                </tr>
+                </tfoot>
+                
+                
+              </table>
+              
+              <!-- <div class="row">
+                <div class="col-4"></div>
+                <div class="col-8 ">
+                  fuck up
+                </div>
+              </div> -->
+              
+              
+            </div>
+          </div>
+          
+        <!-- </div>
+      </div>
+    </div> -->
+  <!-- </div>
+</div> -->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

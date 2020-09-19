@@ -1,0 +1,41 @@
+
+* {margin: 0px;
+padding: 0px;
+box-sizing: border-box;}
+table {
+border: 1px solid #1C6EA4;
+width: 70%;
+text-align: left;
+border-collapse: collapse;
+}
+table td, table th {
+border: 1px solid #AAAAAA;
+padding: 3px 2px;
+}
+table tbody td {
+font-size: 13px;
+}
+table thead {
+background: #1C6EA4;
+border-bottom: 2px solid #444444;
+}
+table thead th {
+font-size: 15px;
+font-weight: bold;
+color: #FFFFFF;
+border-left: 2px solid #D0E4F5;
+}
+table thead th:first-child {
+border-left: none;
+}
+#delete-row{
+padding: 0.4rem;
+vertical-align: top;
+border-top: 1px solid #dee2e6;
+font-size: 12px;
+}
+#row{
+padding: 0.4rem;
+vertical-align: top;
+font-size: 12px;
+}
