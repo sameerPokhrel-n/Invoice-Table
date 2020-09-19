@@ -57,11 +57,14 @@
     var subTotal=0;
     var column = $('.column');
     var total=$('#result');
+    var vat=$('.vat').val();
     
     var rowcount=$('table tbody tr ');
     console.log(rowcount.length);
     if (rowcount.length===1) {
     total.text(subTotal);
+    $('#vatResult').text(0);
+       $('#grandResult').text(0);
     } else {
     jQuery.each(column,function(number){
     // console.log(total.html());
@@ -75,10 +78,18 @@
     total.text(subTotal);
     // console.log(subTotal);
     // sub =- parseInt($(this).html());
+    var vatAmount = ((subTotal*vat)/100);
+    var grandTotal=parseFloat(subTotal+vatAmount);
+     $('#vatResult').text(vatAmount);
+       $('#grandResult').text(grandTotal);
+    
     });
+   
+  
     }
     });
     var body = $('#myTable').children('tbody').first();
+    console.log(body)
     // var totals = $('#totals');
     body.on('input', 'input[type="text"]', function() {
     var cells = $(this).closest('tr').children('td');
@@ -115,18 +126,22 @@
     // console.log(column.html());
     if ($.isNumeric($(this).html())  ){
     sum += parseFloat($(this).html());
-    }
-    
-    });
-    var vatAmount = ((sum*vat)/100);
+     var vatAmount = ((sum*vat)/100);
     var grandTotal=parseFloat(sum+vatAmount);
-    $('#result').text(sum);
-    $('#vatResult').text(vatAmount);
-    $('#grandResult').text(grandTotal);
+    
+   
+    }
+       $('#vatResult').text(vatAmount);
+       $('#grandResult').text(grandTotal);
+  
+    });
+   $('#result').text(sum);
+
+
     console.log(sum);
     console.log(vatAmount);
     });
-    // get the column
+    
     });
     </script>
   </head>
